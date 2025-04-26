@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: login_wanzeller
+    environment:
+      MYSQL_ROOT_PASSWORD: alice222
+      MYSQL_DATABASE: wanzellerdb
+      MYSQL_USER: adminWanz
+      MYSQL_PASSWORD: wenderson223
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - wanz
+
+volumes:
+  mysql_data:
+
+networks:
+  wanz:
+    external: true
