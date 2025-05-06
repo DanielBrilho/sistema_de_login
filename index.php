@@ -1,48 +1,33 @@
 <?php
 
-
+use App\Core\SessionManager;
+require_once __DIR__ . "/App/config/autoload.php"; // Make sure to load classes automatically
+require_once __DIR__ . "/App/config/loadenv.php";
+require_once "Web.php";
+loadEnv(".env");
+SessionManager::Sessioninit();
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Login and Registration</title>
-</head>
 
-<body>
-    <h1>Test Registration</h1>
-    <form action="pages/registar.inc.php" method="POST">
-        <label for="uid">Username:</label>
-        <input type="text" id="uid" name="uid" required><br><br>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
-
-        <label for="pwd">Password:</label>
-        <input type="password" id="pwd" name="pwd" required><br><br>
-
-        <label for="pwdrepeat">Repeat Password:</label>
-        <input type="password" id="pwdrepeat" name="pwdrepeat" required><br><br>
-
-        <button type="submit" name="submit">Register</button>
-    </form>
-
-    <h1>Test Login</h1>
-    <form action="pages/login.inc.php" method="POST">
-        <label for="uid">Username or Email:</label>
-        <input type="text" id="uid" name="uid" required><br><br>
-
-        <label for="pwd">Password:</label>
-        <input type="password" id="pwd" name="pwd" required><br><br>
-
-        <button type="submit" name="submit">Login</button>
-    </form>
-</body>
-
-<a href="test.php">test</a>
-
+    <?php
+    //var_dump($_COOKIE);
+// var_dump($_SESSION);
+    ?>
+    <a href="/App/Views/RegistarView.php">Register</a>
+    <br>
+    <a href="/App/Views/LoginView.php">Login</a>
+    <br>
+    <a href="/test.php">teste de _SESSION</a>
+    <br>
+    <a href="/App/Views/test2.php">test2</a>
+    <br>
+    <form action="/logout" method="POST">
+  <button type="submit">Logout</button>
+</form>
 </html>

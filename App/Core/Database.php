@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../loadenv.php';
-
-loadEnv('../.env');
+namespace App\Core;
+require_once __DIR__ . '/../config/loadenv.php';
+loadEnv('.env');
 class Database
 {
-    private static ?PDO $pdo = null;
+    private static ?\PDO $pdo = null;
 
-    private static function connect(): PDO
+    private static function connect(): \PDO
     {
         if (self::$pdo === null) {
             $host = $_ENV['DB_HOST'];
@@ -19,14 +19,14 @@ class Database
             $dns = "mysql:host=$host;dbname=$dbname;port=$port;charset=$charset";
 
             $options = [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+                \PDO::ATTR_EMULATE_PREPARES => false
             ];
 
             try {
-                self::$pdo = new PDO($dns, $username, $password, $options);
-            } catch (PDOException $e) {
+                self::$pdo = new \PDO($dns, $username, $password, $options);
+            } catch (\PDOException $e) {
                 die('connection failed' . $e->getMessage());
             }
         }
