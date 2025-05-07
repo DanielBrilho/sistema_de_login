@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/../config/autoload.php';
+use App\Middleware\GuestMiddleware;
+
+// Instantiate and execute the middleware
+$middleware = new GuestMiddleware();
+$middleware->handle();
+?>
 <!DOCTYPE html>
 <html lang="en"></html>
 
