@@ -1,0 +1,20 @@
+{
+    "name": "your-vendor/sistema_de_login",
+    "description": "Login system project",
+    "require": {
+      "php": ">=8.0",
+        "bramus/router": "^1.6"
+    },
+    "autoload": {
+      "psr-4": {
+        "App\\": "App/"
+      },
+      "files": [
+        "App/config/EnvLoader.php",
+        "App/Helpers/Helpers.php"
+      ]
+    },
+    "config": {
+      "optimize-autoloader": true
+    }
+  }

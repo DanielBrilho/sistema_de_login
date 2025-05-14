@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
-require_once __DIR__ . '/../config/loadenv.php';
-loadEnv('.env');
+use App\Config\EnvLoader;
+EnvLoader::load(__DIR__ . '/.env');
 class Database
 {
     private static ?\PDO $pdo = null;

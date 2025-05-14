@@ -3,7 +3,7 @@ namespace App\Middleware;
 
 class AuthMiddleware
 {
-    public function handle()
+    public static function handle()
     {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();

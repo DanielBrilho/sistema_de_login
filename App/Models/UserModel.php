@@ -2,10 +2,10 @@
 namespace App\Models;
 use  App\Core\Database;
 class UserModel extends Database{
-    public function checarUsuario($uid, $email){
+    public function checarUsuario($username, $email){
         $stmt = $this->getConnection()->prepare('SELECT username FROM utilizadores WHERE username = ? OR email =?;');
 
-        if(!$stmt->execute([$uid, $email])){
+        if(!$stmt->execute([$username, $email])){
             $stmt = null;
             header("location: ../index.php?error=stmtfailed");
             exit();
@@ -23,54 +23,58 @@ class UserModel extends Database{
     }
 
 
-    public function setUsuario($uid,$pwd, $email){
-        $stmt = $this->getConnection()->prepare('INSERT INTO utilizadores (username,hashPass,email) VALUES (?, ?, ?);');
+  public function setUsuario(
+        string $username,
+        string $password,
+        string $email,
+        bool $isAdmin = false
+    ): void {
+        $stmt = $this->getConnection()
+                     ->prepare('INSERT INTO utilizadores (username, hashPass, email, isAdmin) VALUES (?, ?, ?, ?);');
 
-        $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        if(!$stmt->execute([$uid,$pwdHash, $email])){
-            $stmt = null;
+        if (!$stmt->execute([
+            $username,
+            $passwordHash,
+            $email,
+            (int)$isAdmin
+        ])) {
+            header("location: ../index.php?error=stmtfailed");
+            exit();
+        }
+    }
+
+     public function getUsuario(string $username, string $password): array
+    {
+        $stmt = $this->getConnection()
+                     ->prepare('SELECT * FROM utilizadores WHERE username = ? OR email = ?;');
+
+        if (!$stmt->execute([$username, $username])) {
             header("location: ../index.php?error=stmtfailed");
             exit();
         }
 
-        $stmt = null;
+        if ($stmt->rowCount() === 0) {
+            header("location: ../index.php?error=usernotfound");
+            exit();
+        }
+
+        $utilizador = $stmt->fetch();
+
+        if (!password_verify($password, $utilizador['hashPass'])) {
+            header("location: ../index.php?error=wrongpassword");
+            exit();
+        }
+
+        return [
+            'id'      => $utilizador['id'],
+            'nome'    => $utilizador['username'],
+            'isAdmin' => (bool)$utilizador['isAdmin'],
+        ];
     }
-
-    public function getUsuario($uid, $pwd)
-{
-    // Prepare the statement to fetch the hashed password
-    $stmt = $this->getConnection()->prepare('SELECT * FROM utilizadores WHERE username = ? OR email = ?');
-    if (!$stmt->execute([$uid, $uid])) {
-        $stmt = null;
-        header("location: ../index.php?error=stmtfailed");
-        exit();
-    }
-
-    // Check if the user exists
-    if ($stmt->rowCount() == 0) {
-        $stmt = null;
-        header("location: ../index.php?error=usernotfound");
-        exit();
-    }
-
-    // Fetch user data
-    $utilizador = $stmt->fetch();
-
-    // Verify the password
-    if (!password_verify($pwd, $utilizador["hashPass"])) {
-        $stmt = null;
-        header("location: ../index.php?error=wrongpassword");
-        exit();
-    }
-
-    // Return the user data as an associative array
-    return [
-        'id' => $utilizador['id'],
-        'nome' => $utilizador['username']
-    ];
 }
 
     
-}
+
 

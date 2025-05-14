@@ -1,27 +1,28 @@
 <?php
 namespace App\Controllers;
-
 use App\Models\UserModel;
 use App\Helpers\Helpers;
 use App\Core\SessionManager;
 
 class AuthController
 {
-    private string $uid;
-    private string $pwd;
-    private ?string $pwdrepeat;
+    private string $username;
+    private string $password;
+    private ?string $passwordrepeat;
     private ?string $email;
+    private bool $isAdmin;
     private UserModel $userModel;
 
-    public function __construct(string $uid = '', string $pwd = '', ?string $pwdrepeat = null, ?string $email = null)
+    public function __construct(string $username = '', string $password = '', ?string $passwordrepeat = null, ?string $email = null, bool $isAdmin = false)
     {
         // Initialize session
         SessionManager::Sessioninit();
 
-        $this->uid = Helpers::sanitizeInput($uid);
-        $this->pwd = $pwd; // Do not sanitize password to preserve special characters
-        $this->pwdrepeat = $pwdrepeat;
+        $this->username = Helpers::sanitizeInput($username);
+        $this->password = $password; // Do not sanitize password to preserve special characters
+        $this->passwordrepeat = $passwordrepeat;
         $this->email = $email;
+        $this->isAdmin = $isAdmin;
         $this->userModel = new UserModel();
     }
 
@@ -32,16 +33,18 @@ class AuthController
             return;
         }
 
-        $dados = $this->userModel->getUsuario($this->uid, $this->pwd);
+        $dados = $this->userModel->getUsuario($this->username, $this->password);
 
         if ($dados) {
             $this->fazerLogin($dados);
+            Helpers::redirect('/home');
         }
     }
 
     private function validarCamposVaziosLogin(): bool
     {
-        return !empty($this->uid) && !empty($this->pwd);
+        return !empty($this->username) && !empty($this->password);
+
     }
 
     private function fazerLogin(array $dados)
@@ -57,9 +60,8 @@ class AuthController
         $thirty_days = 60 * 60 * 24 * 30;
         setcookie("id", $dados['id'], time() + $thirty_days, "/", "", isset($_SERVER['HTTPS']), true);
         setcookie("nome", $dados['nome'], time() + $thirty_days, "/", "", isset($_SERVER['HTTPS']), true);
-
-        // Redirect to the home page
-        Helpers::redirect('/sistema_de_login/index.php');
+        setcookie("isAdmin", $dados['isAdmin'], time() + $thirty_days, "/", "", isset($_SERVER['HTTPS']), true);
+     
     }
 
     public function logout()
@@ -70,6 +72,7 @@ class AuthController
         // Clear system cookies
         setcookie('id', '', time() - 3600, "/");
         setcookie('nome', '', time() - 3600, "/");
+        setcookie('nome', '', time() - 3600, "/");
     }
 
     // Registration functionality
@@ -77,30 +80,41 @@ class AuthController
     {
         $validations = [
             'campos_vazios' => !$this->validarCamposVaziosRegistro(),
-            'uid_invalido' => !$this->uidInvalido(),
+            'username_invalido' => !$this->usernameInvalido(),
             'email_invalido' => !$this->validarEmail(),
-            'senhas_diferentes' => !$this->validarPwd(),
-            'utilizador_existente' => !$this->validarUid()
+            'senhas_diferentes' => !$this->validarpassword(),
+            'utilizador_existente' => !$this->validarusername()
         ];
 
         foreach ($validations as $errorKey => $isValid) {
             if ($isValid) {
-                header("location: ../index.php?error=$errorKey");
-                exit();
+                // Store error in session to show in the view
+                SessionManager::set('error', $errorKey);
             }
         }
 
-        $this->userModel->setUsuario($this->uid, $this->pwd, $this->email);
+        // Register the user (but don't log in)
+         $this->userModel->setUsuario(
+            $this->username,
+            $this->password,
+            $this->email,
+            $this->isAdmin
+        );
+        // Optional: store a success message
+        // SessionManager::set('message', 'Usuário registrado com sucesso.');
+
+        return true;
     }
+
 
     private function validarCamposVaziosRegistro(): bool
     {
-        return !empty($this->uid) && !empty($this->pwd) && !empty($this->pwdrepeat) && !empty($this->email);
+        return !empty($this->username) && !empty($this->password) && !empty($this->passwordrepeat) && !empty($this->email);
     }
 
-    private function uidInvalido(): bool
+    private function usernameInvalido(): bool
     {
-        return preg_match("/^[a-zA-Z0-9]+$/", $this->uid);
+        return preg_match("/^[a-zA-Z0-9]+$/", $this->username);
     }
 
     private function validarEmail(): bool
@@ -108,13 +122,13 @@ class AuthController
         return filter_var($this->email, FILTER_VALIDATE_EMAIL) !== false;
     }
 
-    private function validarPwd(): bool
+    private function validarpassword(): bool
     {
-        return $this->pwd === $this->pwdrepeat;
+        return $this->password === $this->passwordrepeat;
     }
 
-    private function validarUid(): bool
+    private function validarusername(): bool
     {
-        return $this->userModel->checarUsuario($this->uid, $this->email);
+        return $this->userModel->checarUsuario($this->username, $this->email);
     }
 }

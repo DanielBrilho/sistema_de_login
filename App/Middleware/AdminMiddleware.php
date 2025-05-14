@@ -1,7 +1,7 @@
 <?php
 namespace App\Middleware;
 
-class AdminAuthMiddleware
+class AdminMiddleware
 {
     public function handle()
     {
