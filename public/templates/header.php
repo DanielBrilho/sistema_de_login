@@ -1,8 +1,8 @@
-<link rel="stylesheet" href="/../css/TemplatesHeader.css">
+<link rel="stylesheet" href="/public/css/partials/TemplatesHeader.css">
 <header class="site-header">
     <div class="nav-container">
         <div class="logo">
-            <a href="/">MyPanel</a>
+            <a href="/">Grace</a>
         </div>
         <nav class="main-nav">
             <a href="/dashboard">Dashboard</a>

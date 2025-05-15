@@ -4,6 +4,7 @@ use App\Models\UserModel;
 
 $userModel = new UserModel();
 $users = $userModel->getConnection()->query("SELECT id, username, email, isAdmin FROM utilizadores")->fetchAll();
+require_once __DIR__ . '/../../../public/templates/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +15,7 @@ $users = $userModel->getConnection()->query("SELECT id, username, email, isAdmin
     <link rel="stylesheet" href="/public/css/Admin/adminpanel.css">
 </head>
 <body>
+
 
 <!-- Main Content -->
 <div class="main-content">
