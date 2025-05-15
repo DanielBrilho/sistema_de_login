@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1a1a1d;
+    color: #e0e0e0;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 20px;
+}
+
+/* ===== Container ===== */
+.main-content {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #2a2a2f;
+    padding: 24px 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Heading ===== */
+.main-content h1 {
+    font-size: 20px;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #b892ff;
+}
+
+/* ===== Form Styles ===== */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 13px;
+    margin-bottom: 4px;
+    color: #cccccc;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    background: #222;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    transition: border-color 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #b892ff;
+}
+
+/* Checkbox Label */
+input[type="checkbox"] {
+    margin-right: 6px;
+    accent-color: #a96bff;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    margin-top: 8px;
+    background: linear-gradient(135deg, #8f5fe8, #a96bff);
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.btn:hover {
+    background: linear-gradient(135deg, #a96bff, #8f5fe8);
+}
+
+/* ===== Link Button ===== */
+.link-btn {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #b892ff;
+    transition: color 0.2s;
+}
+.link-btn:hover {
+    color: #d0afff;
+}
+
+/* ===== Responsive (optional) ===== */
+@media (max-width: 500px) {
+    .main-content {
+        padding: 16px;
+    }
+
+    .main-content h1 {
+        font-size: 18px;
+    }
+
+    .btn,
+    .link-btn {
+        font-size: 12px;
+    }
+}

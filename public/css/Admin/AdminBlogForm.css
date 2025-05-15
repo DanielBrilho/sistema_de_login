@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* ===== Reset & Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #1a1a1d;
+  color: #e0e0e0;
+  line-height: 1.6;
+  padding: 40px 24px;
+}
+
+/* ===== Blog Creation Container ===== */
+.blog-creation-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(43, 43, 49, 0.95);
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Heading ===== */
+.blog-form-container h1 {
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #b892ff;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Form Groups ===== */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #a96bff;
+}
+
+.form-group input[type="text"],
+.form-group input[type="datetime-local"],
+.form-group textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #555;
+  background-color: #2b2b31;
+  color: #e0e0e0;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #a96bff;
+  outline: none;
+}
+
+/* ===== Editor Container ===== */
+#editor-container {
+  padding: 1rem;
+  background-color: #2b2b31;
+  border: 1px solid #555;
+  border-radius: 8px;
+  min-height: 250px;
+  color: #e0e0e0;
+}
+
+/* ===== Checkboxes ===== */
+.checkboxes {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox-item label {
+  font-weight: 500;
+  cursor: pointer;
+  color: #ccc;
+}
+
+/* ===== Form Actions ===== */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Buttons ===== */
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #8f5fe8, #a96bff);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #a96bff, #8f5fe8);
+}
+
+.btn-secondary {
+  background-color: #3c3c45;
+  color: #e0e0e0;
+}
+
+.btn-secondary:hover {
+  background-color: #555;
+}
+
+/* ===== Responsive Adjustments ===== */
+@media (max-width: 600px) {
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}

@@ -32,5 +32,18 @@ class AdminModel extends Database{
 
     return true; // Admin was created
 }
+public function deleteUser(int $id): bool
+{
+    $stmt = $this->getConnection()->prepare('DELETE FROM utilizadores WHERE id = ?;');
+
+    if (!$stmt->execute([$id])) {
+        // Optional: log the error or redirect with an error message
+        header("location: ../index.php?error=stmtfailed");
+        exit();
+    }
+
+    return $stmt->rowCount() > 0; // Returns true if a row was deleted
+}
+
 
 }

@@ -1,24 +1,28 @@
-<?php 
-use App\Core\SessionManager;
-SessionManager::Sessioninit();
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Home</title>
+    <link rel="stylesheet" href="/public/css/Public/PublicHome.css" />
 </head>
-<body style="background-color: #212726;">
+<body>
 
-    <a href="/register">Register</a><br>
-    <a href="/login">Login</a><br>
-    <a href="/test">Test Session</a><br>
-    <a href="/tester">test Middleware</a><br>
-    <a href="/dashboard">admin</a>
-    <form action="/logout" method="POST">
+<div class="container">
+    <h1>Welcome</h1>
+    <nav class="nav-links">
+        <a href="/register">Register</a>
+        <a href="/login">Login</a>
+        <a href="/test">Test Session</a>
+        <a href="/tester">Test Middleware</a>
+        <a href="/dashboard">Admin Panel</a>
+        <a href="/blog">Blog Form</a>
+    </nav>
+
+    <form action="/logout" method="POST" class="logout-form">
         <button type="submit">Logout</button>
     </form>
+</div>
 
 </body>
 </html>

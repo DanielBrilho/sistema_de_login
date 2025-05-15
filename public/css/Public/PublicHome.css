@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* ===== Global Base Styles ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #1a1a1d;
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-size: 16px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.container {
+    max-width: 400px;
+    width: 100%;
+    background: rgba(43, 43, 49, 0.95);
+    padding: 32px 28px;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Heading */
+h1 {
+    font-weight: 600;
+    font-size: 28px;
+    margin-bottom: 28px;
+    color: #b892ff;
+    letter-spacing: 0.5px;
+}
+
+/* Navigation Links */
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 16px;
+    color: #fff; /* Changed to white for visibility */
+    background: linear-gradient(135deg, #8f5fe8, #a96bff);
+    padding: 12px 18px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(169, 107, 255, 0.25);
+    transition: background 0.3s, color 0.3s;
+}
+
+.nav-links a:hover {
+    background: linear-gradient(135deg, #a96bff, #8f5fe8);
+    color: #fff;
+}
+
+/* Logout Form */
+.logout-form {
+    text-align: center;
+}
+
+.logout-form button {
+    background: linear-gradient(135deg, #ff5555, #ff6e6e);
+    border: none;
+    color: #fff;
+    padding: 12px 24px;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 110, 110, 0.4);
+    transition: background 0.3s;
+}
+
+.logout-form button:hover {
+    background: linear-gradient(135deg, #ff6e6e, #ff5555);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 24px 16px;
+    }
+    
+    .nav-links a {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+
+    .logout-form button {
+        font-size: 14px;
+        padding: 10px 18px;
+    }
+}
